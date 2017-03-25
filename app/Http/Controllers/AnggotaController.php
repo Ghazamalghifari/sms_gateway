@@ -8,6 +8,7 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB; 
 use App\Anggota;
 use App\Grub;
+use App\Kontak;
 use Auth;
 use Session;
 
@@ -18,11 +19,11 @@ class AnggotaController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */   
     public function index(Request $request, Builder $htmlBuilder,$id)
     {
         //
-        if ($request->ajax()) {
+        if ($request->ajax()) { 
             # code...
             $anggotas = Anggota::with(['grub','kontak'])->where('grub',$id);
             return Datatables::of($anggotas)->addColumn('action', function($anggota){
@@ -30,10 +31,14 @@ class AnggotaController extends Controller
                         'model'     => $anggota,
                         'form_url'  => route('anggotas.destroy', $anggota->id),
                         'edit_url'  => route('anggotas.edit', $anggota->id), 
-                        'confirm_message'   => 'Yakin Mau Mengeluarkan Anggota Dari Group ?',
+                        'confirm_message'   => 'Yakin Mau Mengeluarkan Anggota Dari Grup ?',
                         ]);
                 })->make(true);
+
+
         }
+
+
         $html = $htmlBuilder 
         ->addColumn(['data' => 'id', 'name' => 'id', 'title' => 'Id'])  
         ->addColumn(['data' => 'kontak.nama', 'name' => 'kontak.nama', 'title' => 'Nama'])  
@@ -44,6 +49,20 @@ class AnggotaController extends Controller
         return view('grubs.anggota',['grub' => $grub])->with(compact('html'));
     }
 
+
+    public function datatable_kontak(Request $request, Builder $htmlBuilder, $id)
+    {
+        //
+        if ($request->ajax()) { 
+            # code...
+            $kontaks = Kontak::select(['id','pemilik_kontak','panggilan','nama','alamat','nomor_hp'])->where('pemilik_kontak', Auth::user()->id)->get(); 
+            return Datatables::of($kontaks)->addColumn('action', 
+                '<a href="{{ url("sms/grub/masuk-kontak/$id/'.$id.'") }}" class="btn btn-sm btn-primary">Masuk<a>'
+            )->make(true);
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -52,7 +71,6 @@ class AnggotaController extends Controller
     public function create()
     {
         //
-        return view('grubs.anggota');
     }
 
     /**
@@ -61,25 +79,33 @@ class AnggotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id_kontak,$id_grup)
     {
-        //
-    $this->validate($request,[
-        'kontak' => "required|unique:anggotas,kontak,Null,id,grub,$request->grub",
-        'grub' => 'required',]);
-
+        //  
+    $status_anggota =  Anggota::where('kontak',$id_kontak)->where('grub',$id_grup)->count(); 
+    if ($status_anggota == 0) {
+        # code.
   $komentar = Anggota::create([
-    'kontak' => $request->kontak,
-    'grub' => $request->grub,]);
+    'kontak' => $id_kontak,
+    'grub' => $id_grup,]);
 
-        $grub = Grub::find($request->grub);
+        $grub = Grub::find($id_grup);
         $grub->jumlah_anggota +=1;
         $grub->save();
  
   Session::flash("flash_notification", [
     "level"=>"success",
-    "message"=>"Berhasil Menambahkan Anggota Ke Grub"
+    "message"=>"Berhasil Menambahkan Anggota Ke Grup"
     ]); 
+    }
+    else {
+  Session::flash("flash_notification", [
+    "level"=>"danger",
+    "message"=>"Tidak Bisa Menambahkan Anggota Ke Grup Karna Sudah Ada"
+    ]); 
+
+    }
+
 
   return redirect()->back();
     }

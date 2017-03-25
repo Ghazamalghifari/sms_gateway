@@ -20,10 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Auth::routes();
- 
-  
-  
- 
+
 Route::group(['prefix'=>'sms', 'middleware'=>['auth']], function () {
  
 	Route::resource('kontaks', 'KontakController'); 
@@ -36,6 +33,18 @@ Route::group(['prefix'=>'sms', 'middleware'=>['auth']], function () {
 	'middleware' => ['auth'],
 	'as' => 'grubs.anggota',
 	'uses' => 'AnggotaController@index'
+	] );
+
+	Route::get('grub/kontak/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'grubs.kontak',
+	'uses' => 'AnggotaController@datatable_kontak'
+	] );
+
+	Route::get('grub/masuk-kontak/{id_kontak}/{id_grup}',[
+	'middleware' => ['auth'],
+	'as' => 'grubs.masuk-kontak',
+	'uses' => 'AnggotaController@store'
 	] );
 
 	Route::get('outbox',[

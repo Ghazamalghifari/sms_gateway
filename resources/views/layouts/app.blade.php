@@ -9,8 +9,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" href="{{{ asset('img/andaglos.png') }}}">
 
     <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel='stylesheet' type='text/css'>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
@@ -49,7 +51,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                     @if (Auth::check())
-                        <li><a href="{{ url('\home') }}">Dashboard</a></li>
+                        <li><a href="{{ url('\home') }}">HOME</a></li>
                         <li><a href="{{ route('kontaks.index') }}">PHONEBOOK</a></li>
                         <li><a href="{{ route('sms.create') }}">KIRIM SMS</a></li>
                         <li><a href="{{ route('sms.index') }}">OUTBOX</a></li>

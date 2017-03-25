@@ -1,25 +1,28 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="container">
-<div class="row">
-<div class="col-md-12">
-<ul class="breadcrumb">
-<li><a href="{{ url('/home') }}">Dashboard</a></li>
-<li class="active">KIRIM PESAN</li>
-</ul>
-@include('sms.menu')
-<div class="panel panel-default">
-<div class="panel-heading">
-<h2 class="panel-title">KIRIM SMS KE SATU</h2>
-</div>
-<div class="panel-body"> 
- {!! Form::open(['url' => route('sms.store'),'method' => 'post','name'=>'pesan', 'class'=>'form-horizontal']) !!}
-@include('sms._form')
-{!! Form::close() !!}
-</div>
-</div>
-</div>
-</div>
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="breadcrumb">
+				<li><a href="{{ url('/home') }}">Home</a></li>
+				<li class="active">Kirim Pesan</li>
+			</ul>
+
+			@include('sms.menu')
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title">KIRIM SMS PERKONTAK</h2>
+				</div>
+
+				<div class="panel-body"> 
+					 {!! Form::open(['url' => route('sms.store'),'method' => 'post','name'=>'pesan', 'class'=>'form-horizontal']) !!}
+					@include('sms._form')
+					{!! Form::close() !!}
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection
 
@@ -46,17 +49,17 @@
 				$("#jumlah_pesan").val(hasil)
 
 				}
-
 			}
 		});
 	});
 </script>
 
 <script language='javascript'>
-function HitungText(){
-var Teks = document.pesan.isi_pesan.value.length;
-var total = document.getElementById('hasil');
-total.innerHTML = 'Jumlah Karakter : ' + Teks ;
-}
+	function HitungText(){
+		var Teks = document.pesan.isi_pesan.value.length;
+		var total = document.getElementById('hasil');
+		total.innerHTML = 'Jumlah Karakter : ' + Teks ;
+	}
 </script>
+
 @endsection 

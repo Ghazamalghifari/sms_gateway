@@ -30,12 +30,12 @@ class GrubController extends Controller
                         'form_url'  => route('grubs.destroy', $grub->id),
                         'edit_url'  => route('grubs.edit', $grub->id),
                         'anggota_url'  => route('grubs.anggota', $grub->id),
-                        'confirm_message'   => 'Yakin Mau Menghapus Grub ' . $grub->nama_grub . '?'
+                        'confirm_message'   => 'Yakin Mau Menghapus Grup ' . $grub->nama_grub . '?'
                         ]);
                 })->make(true);
         }
         $html = $htmlBuilder
-        ->addColumn(['data' => 'nama_grub', 'name' => 'nama_grub', 'title' => 'Nama Grub'])
+        ->addColumn(['data' => 'nama_grub', 'name' => 'nama_grub', 'title' => 'Nama Grup'])
         ->addColumn(['data' => 'jumlah_anggota', 'name' => 'jumlah_anggota', 'title' => 'Jumlah Anggota'])  
         ->addColumn(['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable'=>false]);
 
@@ -73,7 +73,7 @@ class GrubController extends Controller
 
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil Menambah Grub $grub->nama_grub"
+            "message"=>"Berhasil Menambah Grup $grub->nama_grub"
             ]);
         return redirect()->route('grubs.index');
     }
@@ -123,7 +123,7 @@ class GrubController extends Controller
 
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil Mengedit Grub $request->nama_grub"
+            "message"=>"Berhasil Mengedit Grup $request->nama_grub"
             ]);
         return redirect()->route('grubs.index');
     }
@@ -144,7 +144,7 @@ class GrubController extends Controller
         else{
         Session:: flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Grub Berhasil Di Hapus"
+            "message"=>"Grup Berhasil Di Hapus"
             ]);
         return redirect()->route('grubs.index');
         }

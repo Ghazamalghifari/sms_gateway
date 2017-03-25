@@ -5,9 +5,9 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="breadcrumb">
-				<li><a href="{{ url('/home') }} ">Dashboard</a></li>
-				<li><a href="{{ url('/sms/kontaks') }}">Kontak</a></li>
-				<li class="active">Edit Kontak</li>
+					<li><a href="{{ url('/home') }} ">Home</a></li>
+					<li><a href="{{ url('/sms/kontaks') }}">Kontak</a></li>
+					<li class="active">Edit Kontak</li>
 				</ul>
 
 				<div class="panel panel-default">
@@ -16,7 +16,7 @@
 					</div>
 
 					<div class="panel-body">
-						{!! Form::model($kontak, ['url' => route('kontaks.update', $kontak->id), 'method' => 'put', 'files'=>'true', 'class'=>'form-horizontal']) !!}
+						{!! Form::model($kontak, ['url' => route('kontaks.update', $kontak->id), 'method' => 'put', 'files'=>'true','class'=>'form-horizontal']) !!}
 						@include('kontaks._form')
 						{!! Form::close() !!}
 					</div>

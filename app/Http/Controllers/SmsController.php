@@ -59,6 +59,12 @@ class SmsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function parsing_sms($isi_pesan,$nama_kontak){
+     
+        return $parsing_pesan;
+    }
+
     public function store(Request $request)
     {
         //
@@ -72,14 +78,15 @@ class SmsController extends Controller
     $nomor_tujuan = $kontak->nomor_hp;
     $status_kirim = 'Berhasil';
 
+    $isi_pesan = str_replace("[nama]",$kontak->nama,$request->isi_pesan);
     $komentar = Sms::create([
     'pemilik_sms' => $id_user, 
     'jumlah_sms' => $request->jumlah_sms,
-    'isi_pesan' => $request->isi_pesan,
+    'isi_pesan' => $isi_pesan,
     'id_kontak' => $request->id_kontak,
     'nomor_tujuan'=> $nomor_tujuan,
     'status_kirim'=> $status_kirim,]);
-    $isi_pesan = urlencode($request->isi_pesan);
+    $isi_pesan = urlencode($isi_pesan);
     $userkey = env('USERKEY');
     $passkey = env('PASSKEY');
 
@@ -115,13 +122,15 @@ if (env('STATUS_SMS') == 1) {
         # code..
 
 $kontak = Kontak::find($anggota->kontak);
+
+    $isi_pesan = str_replace("[nama]",$kontak->nama,$request->isi_pesan);
           $komentar = Sms::create([
     'pemilik_sms' => $id_user, 
-    'isi_pesan' => $request->isi_pesan,
+    'isi_pesan' => $isi_pesan,
     'id_kontak' => $anggota->kontak,
     'nomor_tujuan'=> $kontak->nomor_hp,
     'status_kirim'=> $status_kirim,]);
-    $isi_pesan = urlencode($request->isi_pesan);
+    $isi_pesan = urlencode($isi_pesan);
     $userkey = env('USERKEY');
     $passkey = env('PASSKEY');
 
@@ -141,6 +150,7 @@ if (env('STATUS_SMS') == 1) {
 
 
     }
+
     /**
      * Display the specified resource.
      *

@@ -7,6 +7,13 @@ var text = $el.data('confirm') ? $el.data('confirm') : 'Anda yakin melakukan tin
 var c = confirm(text);
 return c;
 });
+$(document.body).click('click', '.js-confirm', function() {
+var $el = $(this)
+var text = $el.data('confirm') ? $el.data('confirm') : 'Anda yakin melakukan tindakan ini\
+?'
+var c = confirm(text);
+return c;
+});
 
 
 // add selectize to select element
