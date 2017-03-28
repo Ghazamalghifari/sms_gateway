@@ -80,7 +80,7 @@
                 </div>
             @endif
          <img src="">   
-            <img src="{{{ asset('img/background.png') }}}" style="height:95%" class="img-responsive">         
+            <img src="{{{ asset('image/background.png') }}}" style="height:95%" class="img-responsive">         
         </div>
 
     </body>

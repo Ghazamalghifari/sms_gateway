@@ -12,20 +12,19 @@
     <link rel="shortcut icon" href="{{{ asset('img/andaglos.png') }}}">
 
     <!-- Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel='stylesheet' type='text/css'>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/selectize.bootstrap3.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet"> 
 
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
-    </script>
+    </script> 
 </head>
 <body>
     <div id="app">
@@ -93,7 +92,8 @@
         @yield('content')
     </div>
  
-     <!-- Scripts --><script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+     <!-- Scripts -->
+     <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
 <script src="{{ asset('js/tether.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
